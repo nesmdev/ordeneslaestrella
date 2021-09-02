@@ -65,10 +65,19 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						
+							<label>Contenido {{proveedor.productos[index].insumo.umedida}}</label>
+								<input
+									type="number"
+									class="form-control"
+									v-model="proveedor.productos[index].contenido"
+									required
+									placeholder="Contenido"
+								/>
+
 					</div>
 
 					<div class="col-sm-3">
+						<label>Imagen</label>
 						<input
 							class="form-control"
 							type="url"

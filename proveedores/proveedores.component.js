@@ -34,39 +34,59 @@ const Proveedores = {
 	//   		{{proveedor.nombre}}
 	//   	</router-link>
 	//   </li>
-	template: `
+	template: `<div>
 	<div class="row">
-		<div class="col-sm-10">
-			<router-link 
-				:to="{name:'proveedor.nuevo'}" tag="button" 
-				class="btn btn-primary">Nuevo
-			</router-link>
- 
-		 
-
-			    <div class="card" style="width: 18rem;" v-for="proveedor in proveedores">
-  <img class="card-img-top" :src="proveedor.logo" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{proveedor.nombre}}</h5>
-    <p class="card-text">{{proveedor.descripcion}}</p>
-    <small :title="proveedor._updated.toDate() | fechaLarga"><small>Actualizado {{proveedor._updated.toDate() | hace}}</small></small>
-    <div class="btn-group" role="group" aria-label="Basic example" style="float:right">
- 
-					  <button type="button" class="btn btn-sm btn-success" @click="editar(proveedor)">
-					  	<i class="far fa-pen"></i>
-					  </button>
-					  <button type="button" class="btn btn-sm btn-danger" @click="borrar(proveedor)">
-					  	<i class="far fa-trash-alt"></i>
-					  </button>
-					</div>
-  </div>
+	<div class="col-sm-12">
+		<router-link
+			:to="{name:'proveedor.nuevo'}"
+			tag="button"
+			class="btn btn-primary"
+			>Nuevo
+		</router-link>
+	</div>
 </div>
- 			 
+<div class="row">
+	<div class="col-sm-4" v-for="proveedor in proveedores">
+		<div class="card">
+			<img
+				class="card-img-top"
+				:src="proveedor.logo"
+				alt="Card image cap"
+			/>
+			<div class="card-body">
+				<h5 class="card-title">{{proveedor.nombre}}</h5>
+				<p class="card-text">{{proveedor.descripcion}}</p>
+				<small :title="proveedor._updated.toDate() | fechaLarga"
+					><small
+						>Actualizado {{proveedor._updated.toDate() |
+						hace}}</small
+					></small
+				>
+				<div
+					class="btn-group"
+					role="group"
+					aria-label="Basic example"
+					style="float: right"
+				>
+					<button
+						type="button"
+						class="btn btn-sm btn-success"
+						@click="editar(proveedor)"
+					>
+						<i class="far fa-pen"></i>
+					</button>
+					<!--<button
+						type="button"
+						class="btn btn-sm btn-danger"
+						@click="borrar(proveedor)"
+					 
+						<i class="far fa-trash-alt"></i>
+					</button>>-->
+				</div>
+			</div>
 		</div>
-
-		<div class="col-sm-2">
-
-			 <router-view></router-view>
-		</div>
-	</div>`,
+	</div>
+</div>
+</div>
+`,
 };

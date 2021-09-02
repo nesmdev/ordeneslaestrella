@@ -135,115 +135,133 @@ const Proveedor = {
 
 	template: `
 <div>
- 
-		<form @submit.prevent="onSubmit">
-			<input v-model="id" type="hidden" />
-			<div class="form-group">
-				<label>Nombre</label>
-				<input
-					type="text"
-					class="form-control"
-					v-model="proveedor.nombre"
-					required
-					placeholder="Nombre del proveedor"
-				/>
-			</div>
-			<div class="form-group">
-				<label>Descripción</label>
-				<textarea
-					rows="3"
-					class="form-control"
-					v-model="proveedor.descripcion"
-					required
-					placeholder="Descripción"
-				></textarea>
-			</div>
-			<div class="form-group">
-				<label>Logo</label>
-				<input
-					type="url"
-					class="form-control"
-					v-model="proveedor.logo"
-					 
-					placeholder="Logo del proveedor"
-				/>
-				<img
-					:src="proveedor.logo"
-					@error="imageDefault"
-					style="max-width: 100%; max-height: 250px"
-				/>
-			</div>
+	<form @submit.prevent="onSubmit">
+		<input v-model="id" type="hidden" />
+		<div class="form-group">
+			<label>Nombre</label>
+			<input
+				type="text"
+				class="form-control"
+				v-model="proveedor.nombre"
+				required
+				placeholder="Nombre del proveedor"
+			/>
+		</div>
+		<div class="form-group">
+			<label>Descripción</label>
+			<textarea
+				rows="3"
+				class="form-control"
+				v-model="proveedor.descripcion"
+				required
+				placeholder="Descripción"
+			></textarea>
+		</div>
+		<div class="form-group">
+			<label>Logo</label>
+			<input
+				type="url"
+				class="form-control"
+				v-model="proveedor.logo"
+				placeholder="Logo del proveedor"
+			/>
+			<img
+				:src="proveedor.logo"
+				@error="imageDefault"
+				style="max-width: 100%; max-height: 250px"
+			/>
+		</div>
 
-			<div v-for="(producto, index) in  proveedor.productos " >
-				<div class="form-group">
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="row">
+		<div v-for="(producto, index) in  proveedor.productos ">
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="row">
 							<div class="col-sm-12">
-
-									<label >Producto</label>
-							<input
-								type="text"
-								class="form-control"
-								v-model="proveedor.productos[index].nombre"
-								required
-								placeholder="Producto"
-							/>
-
+								<label>Producto</label>
+								<input
+									type="text"
+									class="form-control"
+									v-model="proveedor.productos[index].nombre"
+									required
+									placeholder="Producto"
+								/>
 							</div>
-						
-                              <div class="col-sm-12">
- 		<label >Insumo</label>
-							<v-select
-								v-model="proveedor.productos[index].insumo"
-								:options="insumos"
-								 
-								label="nombre"
-								required
-								placeholder="Insumo"
-							/>
+
+							<div class="col-sm-12">
+								<label>Insumo</label>
+								<v-select
+									v-model="proveedor.productos[index].insumo"
+									:options="insumos"
+									label="nombre"
+									required
+									placeholder="Insumo"
+								/>
 							</div>
-                              </div>
-						
-						</div>
-
-
-						<div class="col-sm-3">
-							<input class="form-control" type="url"
-								v-model="proveedor.productos[index].imagen"
-								placeholder="Imagen"
-
-							/>
-							<img style="max-width:100%; max-height:200px" :src="proveedor.productos[index].imagen"/>
-						</div>
-						<div class="col-sm-1">
-							<button
-								type="button"
-								class="btn btn-sm btn-danger"
-								@click="eliminarProducto(index)">
-							
-								X
-							</button>
 						</div>
 					</div>
+					<div class="col-sm-4">
+							<label v-if="!proveedor.productos[index].insumo">
+								Contenido 
+							</label>
+							<label v-if="proveedor.productos[index].insumo">
+								Contenido ({{proveedor.productos[index].insumo.umedida}})
+							</label>
+								<input
+									type="number"
+									class="form-control"
+									v-model="proveedor.productos[index].contenido"
+									required
+									step="0.01"
+									placeholder="Contenido"
+								/>
+
+					</div>
+
+					<div class="col-sm-3">
+						<label>Imagen</label>
+						<input
+							class="form-control"
+							type="url"
+							v-model="proveedor.productos[index].imagen"
+							placeholder="Imagen"
+						/>
+						<img
+							style="max-width: 100%; max-height: 200px"
+							:src="proveedor.productos[index].imagen"
+						/>
+					</div>
+					<div class="col-sm-1">
+						<button v-if="!proveedor.productos[index].imagen && !proveedor.productos[index].contenido && !proveedor.productos[index].insumo && !proveedor.productos[index].producto"
+							type="button"
+							class="btn btn-sm btn-danger"
+							@click="eliminarProducto(index)"
+						>
+							X
+						</button>
+					</div>
 				</div>
-				<hr/>
 			</div>
-						<button
-				type="button"
-				class="btn btn-sm btn-primary"
-				@click="agregarProducto"
-			>
-				Añadir producto
-			</button>
-			<span v-if="proveedor._updated" :title="proveedor._updated.toDate() | fechaLarga"
-				>Se actualizó {{ proveedor._updated.toDate() | hace }}</span
-			>
-<hr/>
-			<button type="submit" class="btn btn-primary">Submit</button>
-			<button type="button" class="btn btn-danger" @click="cancelar">Cancelar</button>
-		</form>
- 
+			<hr />
+		</div>
+		<button
+			type="button"
+			class="btn btn-sm btn-primary"
+			@click="agregarProducto"
+		>
+			Añadir producto
+		</button>
+		<span
+			v-if="proveedor._updated"
+			:title="proveedor._updated.toDate() | fechaLarga"
+			>Se actualizó {{ proveedor._updated.toDate() | hace }}</span
+		>
+		<hr />
+		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="button" class="btn btn-danger" @click="cancelar">
+			Cancelar
+		</button>
+	</form>
 </div>
 
 
