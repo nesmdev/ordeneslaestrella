@@ -12,33 +12,47 @@
 			integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 			crossorigin="anonymous"
 		/>
-		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-<link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+		<link
+			rel="stylesheet"
+			href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+			integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css"
+		/>
 	</head>
 
 	<body>
-			  <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      // This script checks to see if a redirect is present in the query string,
-      // converts it back into the correct url and adds it to the
-      // browser's history using window.history.replaceState(...),
-      // which won't cause the browser to attempt to load the new url.
-      // When the single page app is loaded further down in this file,
-      // the correct url will be waiting in the browser's history for
-      // the single page app to route accordingly.
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
-        }
-      }(window.location))
-    </script>
+		<script type="text/javascript">
+			// Single Page Apps for GitHub Pages
+			// MIT License
+			// https://github.com/rafgraph/spa-github-pages
+			// This script checks to see if a redirect is present in the query string,
+			// converts it back into the correct url and adds it to the
+			// browser's history using window.history.replaceState(...),
+			// which won't cause the browser to attempt to load the new url.
+			// When the single page app is loaded further down in this file,
+			// the correct url will be waiting in the browser's history for
+			// the single page app to route accordingly.
+			(function (l) {
+				if (l.search[1] === "/") {
+					var decoded = l.search
+						.slice(1)
+						.split("&")
+						.map(function (s) {
+							return s.replace(/~and~/g, "&");
+						})
+						.join("?");
+					window.history.replaceState(
+						null,
+						null,
+						l.pathname.slice(0, -1) + decoded + l.hash
+					);
+				}
+			})(window.location);
+		</script>
 		<div class="container" id="app">
 			<!-- use router-link component for navigation. -->
 			<!-- specify the link by passing the `to` prop. -->
@@ -57,7 +71,7 @@
 					>
 				</li>
 				<li class="nav-item">
-						<router-link class="nav-link" to="/proveedores"
+					<router-link class="nav-link" to="/proveedores"
 						>Proveedores</router-link
 					>
 				</li>
@@ -89,15 +103,27 @@
 		></script>
 
 		<!-- or point to a specific vue-select release -->
-<script src="https://unpkg.com/vue-select@3.0.0"></script>
+		<script src="https://unpkg.com/vue-select@3.0.0"></script>
 
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+			integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			type="text/javascript"
+			src="https://momentjs.com/downloads/moment-with-locales.min.js"
+		></script>
 		<script type="text/javascript">
-			 moment.locale("es");
+			moment.locale("es");
 		</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+			integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 		<script type="text/javascript" src="fire.js"></script>
 		<script
 			type="text/javascript"
@@ -118,7 +144,5 @@
 		></script>
 
 		<script type="text/javascript" src="main.js"></script>
-
-
 	</body>
 </html>

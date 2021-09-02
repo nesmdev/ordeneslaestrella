@@ -30,8 +30,8 @@ const routes = [
 
 const router = new VueRouter({
 	routes, // short for `routes: routes`
-	mode: "history", // without hash
-	base: "ordeneslaestrella", //necesary for gh-pages
+	// mode: "history", // without hash
+	// base: "ordeneslaestrella", //necesary for gh-pages
 });
 
 Vue.filter("fechaLarga", function (value) {
