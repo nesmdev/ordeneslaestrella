@@ -25,42 +25,7 @@
 	</head>
 
 	<body>
-		<script type="text/javascript">
-			// Single Page Apps for GitHub Pages
-			// MIT License
-			// https://github.com/rafgraph/spa-github-pages
-			// This script checks to see if a redirect is present in the query string,
-			// converts it back into the correct url and adds it to the
-			// browser's history using window.history.replaceState(...),
-			// which won't cause the browser to attempt to load the new url.
-			// When the single page app is loaded further down in this file,
-			// the correct url will be waiting in the browser's history for
-			// the single page app to route accordingly.
-			// (function (l) {
-			// 	if (l.search[1] === "/") {
-			// 		var decoded = l.search
-			// 			.slice(1)
-			// 			.split("&")
-			// 			.map(function (s) {
-			// 				return s.replace(/~and~/g, "&");
-			// 			})
-			// 			.join("?");
-			// 		window.history.replaceState(
-			// 			null,
-			// 			null,
-			// 			l.pathname.slice(0, -1) + decoded + l.hash
-			// 		);
-			// 	}
-			// })(window.location);
-		</script>
 		<div class="container" id="app">
-			<!-- use router-link component for navigation. -->
-			<!-- specify the link by passing the `to` prop. -->
-			<!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-			<!-- 				<router-link to="/fire">Go to Fire</router-link>
-				<router-link to="/bar">Go to Bar</router-link>
-				<router-link to="/button">Go to Button</router-link> -->
-			<!-- <router-link to="/products">Products</router-link> -->
 			<ul class="nav">
 				<li class="nav-item">
 					<a class="nav-link active" href="/">Inicio</a>
@@ -140,8 +105,11 @@
 		></script>
 		<script
 			type="text/javascript"
-			src="proveedores/proveedor2.component.js"
+			src="proveedores/proveedor.component.js"
 		></script>
+
+		<script type="text/javascript" src="facturas/facturas.component.js"></script>
+		<script type="text/javascript" src="facturas/factura.component.js"></script>
 
 		<script type="text/javascript" src="main.js"></script>
 	</body>

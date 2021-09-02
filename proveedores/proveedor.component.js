@@ -2,34 +2,33 @@ const Proveedor = {
 	data: function () {
 		return {
 			id: null,
-			proveedor: {},
+			proveedor: { productos: [] },
 
 			actualizado: null,
-			// frase: null,
+
 			mostrar: true,
-			opciones: [],
+
 			insumos: [],
-			opciones2: [],
-			seleccionados: [],
-			CryptoJS: CryptoJS,
 		};
 	},
 
 	mounted() {
 		const id = this.$route.params.id;
 		// insumos$.get().then(qs=>this.insumos=qs.docs.map(doc=>doc.data().nombre))
-		this.insumos = [
-			{ ".key": 1, nombre: "insumo 1" },
-			{ ".key": 2, nombre: "insumo 2" },
-		];
+
 		// this.$binding("insumos", insumos$);
 		if (id) {
 			this.$binding("proveedor", proveedores$.doc(this.$route.params.id));
 
 			this.id = id;
-			this.actualizado = this.proveedor._updated.toDate();
-			console.log(this.actualizado);
+			// this.actualizado = this.proveedor._updated.toDate();
+			// console.log(this.actualizado);
 		}
+	},
+	firestore() {
+		return {
+			insumos: insumos$,
+		};
 	},
 
 	computed: {
@@ -38,6 +37,21 @@ const Proveedor = {
 		},
 	},
 	methods: {
+		onSubmit() {
+			const proveedor = { ...this.proveedor };
+			delete proveedor[".key"];
+			proveedor._updated = new Date();
+			console.log("proveedor", proveedor);
+			if (this.id) {
+				this.actualizar(this.id,proveedor);
+			} else {
+				proveedor._created = new Date();
+				this.crear(proveedor);
+			}
+		},
+		imageDefault(e) {
+			e.target.src = "https://i.imgur.com/9Gw7q2s.png";
+		},
 		volverSi: function (evt) {
 			if (evt) evt.preventDefault();
 			if (this.$route.name !== "proveedores") {
@@ -50,14 +64,14 @@ const Proveedor = {
 			console.log("seleccionados", this.seleccionados);
 		},
 
-		crear() {
-			console.log(this.proveedor);
+		crear(proveedor) {
+			// console.log(this.proveedor);
 
 			// db.runTransaction(transaction=>{
 
 			// 	return transaction.get($proveedores)
 			// })
-
+			console.log("crear",proveedor);
 			proveedores$
 				.add({
 					nombre: this.proveedor.nombre.toUpperCase(),
@@ -78,18 +92,28 @@ const Proveedor = {
 			// 	_updated:new Date(),
 			// };
 		},
-
-		actualizar() {
-			console.log(this.proveedor);
-
+		// agregarInsumos() {
+		// 	this.proveedor.insumos = this.proveedor.insumos
+		// 		? this.proveedor.insumos
+		// 		: [];
+		// 	this.proveedor.insumos.push({ nombre: "" });
+		// 	console.log(this.proveedor);
+		// },
+		agregarProducto() {
+			this.proveedor.productos.push({
+				nombre: null,
+				insumo: null,
+			});
+		},
+		eliminarProducto(key) {
+			this.proveedor.productos.splice(key, 1);
+		},
+		actualizar(id, proveedor) {
+			// console.log(this.proveedor);
 			proveedores$
-				.doc(this.id)
-				.update({
-					nombre: this.proveedor.nombre.toUpperCase(),
-					descripcion: this.proveedor.descripcion,
-					_updated: new Date(),
-				})
-				.then((done) => {
+				.doc(id)
+				.update(proveedor)
+				.then(() => {
 					this.volverSi();
 				});
 
@@ -98,27 +122,109 @@ const Proveedor = {
 			// 	_created: new Date(),
 			// });
 		},
+
+		crear(proveedor){
+			proveedores$.add(proveedor).then(()=>{
+				this.volverSi();
+			})
+		}
 	},
 
 	template: `
-	<div>
-		<b-modal v-model="mostrar" @ok="volverSi" @cancel="volverSi" @hidden="volverSi" :title="title" hide-footer>
-		  <input v-model="id" type="hidden"/>
-		  <input v-model="proveedor.nombre" type="text" class="form-control" placeholder="Nombre"/>
-		  <input v-model="proveedor.descripcion" type="text" class="form-control" placeholder="Descripción"/> 
-		  <v-select 
-			taggable multiple push-tags 
-		  	:options="insumos" 
-		  	v-model="seleccionados" 
-		  	
-		  	label="nombre"  
-		  	:create-option="insumo => ({ nombre: insumo, '.key': +new Date(), new:true})"
-		  	@input="imprimir" />
+<div>
+	<b-modal
+		v-model="mostrar"
+		@ok="volverSi"
+		@cancel="volverSi"
+		@hidden="volverSi"
+		:title="title"
+		hide-footer
+	>
+		<form @submit.prevent="onSubmit">
+			<input v-model="id" type="hidden" />
+			<div class="form-group">
+				<label>Nombre</label>
+				<input
+					type="text"
+					class="form-control"
+					v-model="proveedor.nombre"
+					required
+					placeholder="Nombre del proveedor"
+				/>
+			</div>
+			<div class="form-group">
+				<label>Descripción</label>
+				<textarea
+					rows="3"
+					class="form-control"
+					v-model="proveedor.descripcion"
+					required
+					placeholder="Descripción"
+				></textarea>
+			</div>
+			<div class="form-group">
+				<label>Logo</label>
+				<input
+					type="url"
+					class="form-control"
+					v-model="proveedor.logo"
+					required
+					placeholder="Logo del proveedor"
+				/>
+				<img
+					:src="proveedor.logo"
+					@error="imageDefault"
+					style="max-width: 100%; max-height: 250px"
+				/>
+			</div>
+			<button
+				type="button"
+				class="btn btn-sm btn-primary"
+				@click="agregarProducto"
+			>
+				Añadir producto
+			</button>
+			<div v-for="(producto, index) in proveedor.productos">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-6">
+							<input
+								type="text"
+								class="form-control"
+								v-model="proveedor.productos[index].nombre"
+								required
+							/>
+						</div>
+						<div class="col-sm-5">
+							<v-select
+								v-model="proveedor.productos[index].insumo"
+								:options="insumos"
+								 
+								label="nombre"
+								required
+							/>
+						</div>
+						<div class="col-sm-1">
+							<button
+								type="button"
+								class="btn btn-sm btn-danger"
+								@click="eliminarProducto(index)"
+							
+								-
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<span v-if="proveedor._updated" :title="proveedor._updated.toDate() | fechaLarga"
+				>Se actualizó {{ proveedor._updated.toDate() | hace }}</span
+			>
+<hr/>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</b-modal>
+</div>
 
-		  <button v-if="!id" class="btn btn-primary" @click="crear">Guardar</button>
-		  <button v-if="id" class="btn btn-success" @click="actualizar">Guardar</button>
-		  <span v-if="id" :title="proveedor._updated.toDate() | fechaLarga">Se actualizó {{proveedor._updated.toDate() | hace}}</span>
-		</b-modal>
-	</div>
+
 	`,
 };

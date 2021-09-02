@@ -26,6 +26,19 @@ const routes = [
 			},
 		],
 	},
+	// { path: "proveedor", component: Proveedor, name: "proveedor.nuevo" },
+	// { path: "proveedor/:id", component: Proveedor, name: "proveedor.editar" },
+	{
+		path: "/facturas",
+		component: Facturas,
+		name: "facturas",
+	},
+
+	{
+		path: "/factura",
+		component: Factura,
+		name: "factura.nuevo",
+	},
 ];
 
 const router = new VueRouter({

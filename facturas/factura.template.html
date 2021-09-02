@@ -1,0 +1,58 @@
+<form>
+  <div class="form-group">
+    <label>Proveedor</label>
+    <v-select
+      v-model="factura.proveedor"
+      :options="proveedores"
+      placeholder="Proveedor"
+    />
+  </div>
+  <div class="form-group">
+    <label>Número</label>
+    <input
+      type="text"
+      class="form-control"
+      v-model="factura.numero"
+      placeholder="Número"
+    />
+  </div>
+
+  <div class="row">
+    <button @click="agregarItem">Agregar item</button>
+    <div class="div" v-for="(item, key) of factura.items">
+      <div class="form-group">
+        <label>Número</label>
+        <v-select
+          type="text"
+          class="form-control"
+          v-model="factura.item[key].nombre"
+          :options="proveedor.productos"
+          placeholder="Item"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Precio</label>
+        <input
+          type="number"
+          class="form-control"
+          v-model="factura.item[key].precio"
+          placeholder="Precio"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Cantidad</label>
+        <input
+          type="number"
+          class="form-control"
+          v-model="factura.item[key].cantidad"
+          :options="proveedor.productos"
+          placeholder="Cantidad"
+        />
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

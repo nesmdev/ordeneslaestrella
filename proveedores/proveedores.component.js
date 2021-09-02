@@ -13,6 +13,8 @@ const Proveedores = {
 	},
 	methods: {
 		borrar(proveedor) {
+			const eliminar = confirm("¿Eliminar proveedor?");
+			if (!eliminar) return false;
 			const id = proveedor[".key"];
 			console.log(proveedor[".key"]);
 			proveedores$.doc(id).delete();
