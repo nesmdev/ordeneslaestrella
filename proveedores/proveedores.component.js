@@ -24,7 +24,7 @@ const Proveedores = {
 			const id = proveedor[".key"];
 			console.log(proveedor[".key"]);
 			this.$router.push({
-				name: "proveedor",
+				name: "proveedor.editar",
 				params: { id: id },
 			});
 		},

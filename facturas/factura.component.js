@@ -56,7 +56,7 @@ const Factura = {
  
     <button class="btn btn-primary btn-sm" type="button" @click="agregarItem" v-if="factura.proveedor">Agregar item</button>
     <hr/>
-    <div class="div" v-for="(item, key) of factura.items" >
+    <div class="div" v-for="(item, key) of  factura.items" >
     <div class="row">
 
       <div class="form-group col-sm-4">

@@ -17,17 +17,17 @@ const routes = [
 		path: "/proveedores",
 		component: Proveedores,
 		name: "proveedores",
-		children: [
-			{ path: "nuevo", component: Proveedor, name: "proveedor.nuevo" },
-			{
-				path: ":id",
-				component: Proveedor,
-				name: "proveedor",
-			},
-		],
+		// children: [
+		// 	{ path: "nuevo", component: Proveedor, name: "proveedor.nuevo" },
+		// 	{
+		// 		path: ":id",
+		// 		component: Proveedor,
+		// 		name: "proveedor",
+		// 	},
+		// ],
 	},
-	// { path: "proveedor", component: Proveedor, name: "proveedor.nuevo" },
-	// { path: "proveedor/:id", component: Proveedor, name: "proveedor.editar" },
+	{ path: "proveedor", component: Proveedor, name: "proveedor.nuevo" },
+	{ path: "proveedor/:id", component: Proveedor, name: "proveedor.editar" },
 	{
 		path: "/facturas",
 		component: Facturas,
@@ -58,6 +58,11 @@ Vue.filter("hace", function (value) {
 		const date = new Date(value);
 		return moment(date).fromNow();
 	}
+});
+
+Vue.filter('reverse', function(value) {
+  // slice to make a copy of array, then reverse the copy
+  return value.slice().reverse();
 });
 
 Vue.component("v-select", VueSelect.VueSelect);
