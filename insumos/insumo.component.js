@@ -170,7 +170,8 @@ const Insumo = {
 					<img
 						:src="insumo.imagen"
 						v-if="imagenValida"
-						style="max-width: 100%"
+						style="max-width: 100%; border-radius:5px"
+
 					/>
 				</div>
 			</div>
