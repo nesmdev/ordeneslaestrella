@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>La Estrella Inventario</title>
+
+		<!-- CSS only -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+	</head>
+
+	<body>
+		<div class="container" id="app">
+			<!-- use router-link component for navigation. -->
+			<!-- specify the link by passing the `to` prop. -->
+			<!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+			<!-- 				<router-link to="/fire">Go to Fire</router-link>
+				<router-link to="/bar">Go to Bar</router-link>
+				<router-link to="/button">Go to Button</router-link> -->
+			<!-- <router-link to="/products">Products</router-link> -->
+			<ul class="nav">
+				<li class="nav-item">
+					<a class="nav-link active" href="#">Inicio</a>
+				</li>
+				<li class="nav-item">
+					<router-link class="nav-link" to="/insumos"
+						>Insumos</router-link
+					>
+				</li>
+				<li class="nav-item">
+						<router-link class="nav-link" to="/proveedores"
+						>Proveedores</router-link
+					>
+				</li>
+				<!-- 		<li class="nav-item">
+					<a class="nav-link disabled" href="#">Disabled</a>
+				</li> -->
+			</ul>
+
+			<!-- route outlet -->
+			<!-- component matched by the route will render here -->
+			<router-view></router-view>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+		<!-- JavaScript Bundle with Popper -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+		<script src="https://unpkg.com/vue-firestore@0.3.30/dist/vue-firestore.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-vue/2.21.2/bootstrap-vue.min.js"
+			integrity="sha512-Z0dNfC81uEXC2iTTXtE0rM18I3ATkwn1m8Lxe0onw/uPEEkCmVZd+H8GTeYGkAZv50yvoSR5N3hoy/Do2hNSkw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+
+		<!-- or point to a specific vue-select release -->
+<script src="https://unpkg.com/vue-select@3.0.0"></script>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+		<script type="text/javascript">
+			 moment.locale("es");
+		</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script type="text/javascript" src="fire.js"></script>
+		<script
+			type="text/javascript"
+			src="insumos/insumo.component.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="insumos/insumos.component.js"
+		></script>
+
+		<script
+			type="text/javascript"
+			src="proveedores/proveedores.component.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="proveedores/proveedor2.component.js"
+		></script>
+
+		<script type="text/javascript" src="main.js"></script>
+	</body>
+</html>
