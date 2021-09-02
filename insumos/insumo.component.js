@@ -3,6 +3,7 @@ const Insumo = {
 		return {
 			id: null,
 			insumo: { onombres: [] },
+			insumos: [],
 			mostrar: true,
 			actualizado: null,
 			umedidas: ["Kilogramo", "Litro", "Unidad"],
@@ -20,19 +21,23 @@ const Insumo = {
 
 	mounted() {
 		const id = this.$route.params.id;
-
+		console.log("id", id);
+		this.$binding("proveedores", proveedores$);
+		this.$binding("insumos", insumos$);
+		console.log("insumos", this.insumos);
 		if (id) {
-			this.$binding("insumo", insumos$.doc(this.$route.params.id));
+			this.$binding("insumo", insumos$.doc(id));
+			console.log("insumo", { ...this.insumo });
 			this.id = id;
 			this.actualizado = this.insumo._updated;
 			console.log(this.insumo._updated);
 		}
 	},
-	firestore() {
-		return {
-			proveedores: proveedores$,
-		};
-	},
+	// firestore() {
+	// 	return {
+	// 		proveedores: proveedores$,
+	// 	};
+	// },
 
 	computed: {
 		// id() {
@@ -44,14 +49,21 @@ const Insumo = {
 		},
 	},
 	methods: {
+		eliminarNombre(key) {
+			this.insumo.onombres.splice(key, 1);
+		},
 		agregarNombre() {
 			this.insumo.onombres.push({
 				nombre: "",
 				proveedor: "",
 			});
 		},
-		enviar() {
-			console.log(this.insumo);
+		submit() {
+			if (this.id) {
+				this.actualizar();
+			} else {
+				this.crear();
+			}
 		},
 		mostrarImagen() {
 			try {
@@ -71,16 +83,15 @@ const Insumo = {
 		crear() {
 			console.log(this.insumo);
 
-			insumos$
-				.add({
-					nombre: this.insumo.nombre.toUpperCase(),
-					nombres: this.getNombres(this.insumo.nombres),
-					_updated: new Date(),
-					_created: new Date(),
-				})
-				.then((done) => {
-					this.volverSi();
-				});
+			const insumo = {
+				...this.insumo,
+				_created: new Date(),
+				_updated: new Date(),
+			};
+			delete insumo[".key"]
+			insumos$.add(insumo).then((done) => {
+				this.volverSi();
+			});
 		},
 
 		getNombres(nombres) {
@@ -96,21 +107,19 @@ const Insumo = {
 
 		actualizar() {
 			console.log(this.insumo);
+
+			const insumo = {
+				...this.insumo,
+				// _created: new Date(),
+				_updated: new Date(),
+			};
+			delete insumo[".key"]
 			insumos$
 				.doc(this.id)
-				.update({
-					nombre: this.insumo.nombre.toUpperCase(),
-					nombres: this.getNombres(this.insumo.nombres),
-					_updated: new Date(),
-				})
+				.update(insumo)
 				.then((done) => {
 					this.volverSi();
 				});
-
-			// insumos$({
-			// 	...this.insumo,
-			// 	_created: new Date(),
-			// });
 		},
 	},
 
@@ -123,7 +132,7 @@ const Insumo = {
 		@hidden="volverSi"
 		:title="title"
 		hide-footer
-		><form @submit.prevent="enviar">
+		><form @submit.prevent="submit">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="form-group">
@@ -170,12 +179,15 @@ const Insumo = {
 					<img
 						:src="insumo.imagen"
 						v-if="imagenValida"
-						style="max-width: 100%; border-radius:5px"
+						style="max-width: 100%; max-height:300px; border-radius:5px"
 
 					/>
 				</div>
 			</div>
-
+			<div class="form-group">
+				<label for="notas">Descripción</label>
+				<textarea class="form-control"   rows="3" v-model="insumo.descripcion"></textarea>
+			</div>
 			<div class="form-group" >
 				<label for="otros_nombres">Otros nombres</label>
 				<button type="button" class="btn btn-primary btn-sm" @click="agregarNombre">+</button>
@@ -189,7 +201,7 @@ const Insumo = {
 							required
 						/>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<v-select
 							v-model="insumo.onombres[key].proveedor"
 							placeholder="Proveedor"
@@ -197,17 +209,20 @@ const Insumo = {
 							label="nombre"
 							:reduce="proveedor=>proveedor['.key']"
 						></v-select>
+						
 					</div>
+					<div class="col-sm-1"><button type="button" class="btn btn-sm btn-danger" @click="eliminarNombre(key)">-</button></div>
+					
 				</div>
 			</div>
 
-			<button v-if="!id" class="btn btn-primary" @click="crear">
+			<button v-if="!id" class="btn btn-primary" type="submit">
 				Guardar
 			</button>
-			<button v-if="id" class="btn btn-success" @click="actualizar">
+			<button v-if="id" class="btn btn-success" type="submit">
 				Guardar
 			</button>
-			<span v-if="id" :title="insumo._updated.toDate() | fechaLarga"
+			<span v-if="insumo._updated" :title="insumo._updated.toDate() | fechaLarga"
 				>Se actualizó {{ insumo._updated.toDate() | hace }}</span
 			>
 		</form>

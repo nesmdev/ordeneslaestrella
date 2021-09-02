@@ -41,31 +41,25 @@ const Insumos = {
 			>Nuevo
 		</router-link>
 		<hr />
-		 <ul class="list-unstyled">
-  <li class="media" v-for="insumo in insumos">
-    <img class="mr-3" :src="insumo.imagen" alt="Generic placeholder image" style="max-width:150px">
-    <div class="media-body">
-      <h5 class="mt-0 mb-1">{{insumo.nombre}}</h5>
-      {{insumo.descripcion}}<br/>
-       <div class="btn-group" role="group" aria-label="Basic example" style="float:right">
- 
-					  <button type="button" class="btn btn-sm btn-success" @click="editar(insumo)">
-					  	<i class="far fa-pen"></i>
-					  </button>
-					  <button type="button" class="btn btn-sm btn-danger" @click="borrar(insumo)">
-					  	<i class="far fa-trash-alt"></i>
-					  </button>
-					</div>
-      	<small :title="insumo._updated.toDate() | fechaLarga"
+		<ul class="list-unstyled">
+			<li class="media" v-for="insumo in insumos">
+				<img
+					class="mr-3"
+					:src="insumo.imagen"
+					alt="Generic placeholder image"
+				/>
+				<div class="media-body">
+					<h5 class="mt-0 mb-1">{{insumo.nombre}}</h5>
+					{{insumo.notas}}
+					<small :title="insumo._updated.toDate() | fechaLarga"
 						><small
 							>Actualizado {{insumo._updated.toDate() |
 							hace}}</small
 						></small
 					>
-    </div>
-  </li>
- 
-</ul>
+				</div>
+			</li>
+		</ul>
 	</div>
 
 	<div class="col-sm-2">
