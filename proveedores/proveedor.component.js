@@ -1,31 +1,31 @@
-const Proveedor  = {
+const Proveedor = {
 	data: function () {
 		return {
 			id: null,
 			proveedor: {},
- 
+
 			actualizado: null,
 			// frase: null,
-			mostrar:true,
-			opciones:[],
-			insumos:[],
-			opciones2:[],
-			seleccionados:[],
-			CryptoJS:CryptoJS,
+			mostrar: true,
+			opciones: [],
+			insumos: [],
+			opciones2: [],
+			seleccionados: [],
+			CryptoJS: CryptoJS,
 		};
 	},
- 
+
 	mounted() {
 		const id = this.$route.params.id;
 		// insumos$.get().then(qs=>this.insumos=qs.docs.map(doc=>doc.data().nombre))
-		this.insumos=[
-               {".key":1,"nombre":"insumo 1"},
-               {".key":2,"nombre":"insumo 2"},
-			]
+		this.insumos = [
+			{ ".key": 1, nombre: "insumo 1" },
+			{ ".key": 2, nombre: "insumo 2" },
+		];
 		// this.$binding("insumos", insumos$);
 		if (id) {
 			this.$binding("proveedor", proveedores$.doc(this.$route.params.id));
-			
+
 			this.id = id;
 			this.actualizado = this.proveedor._updated.toDate();
 			console.log(this.actualizado);
@@ -33,7 +33,6 @@ const Proveedor  = {
 	},
 
 	computed: {
- 
 		title() {
 			return !this.id ? "Nuevo proveedor" : "Editar proveedor";
 		},
@@ -46,23 +45,23 @@ const Proveedor  = {
 			}
 		},
 
-		imprimir(){
-			console.log("insumos",this.insumos)
-			console.log("seleccionados",this.seleccionados)
+		imprimir() {
+			console.log("insumos", this.insumos);
+			console.log("seleccionados", this.seleccionados);
 		},
 
 		crear() {
 			console.log(this.proveedor);
 
-				// db.runTransaction(transaction=>{
+			// db.runTransaction(transaction=>{
 
-				// 	return transaction.get($proveedores)
-				// })
+			// 	return transaction.get($proveedores)
+			// })
 
 			proveedores$
 				.add({
 					nombre: this.proveedor.nombre.toUpperCase(),
-						descripcion: this.proveedor.descripcion,
+					descripcion: this.proveedor.descripcion,
 					_updated: new Date(),
 					_created: new Date(),
 				})
@@ -70,19 +69,18 @@ const Proveedor  = {
 					this.volverSi();
 				});
 		},
-        getRandomID(){
-        	const id =CryptoJS.MD5(+new Date()).toString();
-        	return id;
-        	// return {
-        	// 	".key":id,
-        	// 	_created:new Date(),
-        	// 	_updated:new Date(),
-        	// };
-        },
- 
+		getRandomID() {
+			const id = CryptoJS.MD5(+new Date()).toString();
+			return id;
+			// return {
+			// 	".key":id,
+			// 	_created:new Date(),
+			// 	_updated:new Date(),
+			// };
+		},
+
 		actualizar() {
 			console.log(this.proveedor);
-
 
 			proveedores$
 				.doc(this.id)

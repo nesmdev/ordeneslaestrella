@@ -13,7 +13,7 @@ const routes = [
 		],
 	},
 
-		{
+	{
 		path: "/proveedores",
 		component: Proveedores,
 		name: "proveedores",
@@ -30,8 +30,8 @@ const routes = [
 
 const router = new VueRouter({
 	routes, // short for `routes: routes`
-	 mode: 'history',
-	 base:"ordeneslaestrella"
+	mode: "history", // without hash
+	base: "ordeneslaestrella", //necesary for gh-pages
 });
 
 Vue.filter("fechaLarga", function (value) {
@@ -47,7 +47,7 @@ Vue.filter("hace", function (value) {
 	}
 });
 
-Vue.component('v-select', VueSelect.VueSelect);
+Vue.component("v-select", VueSelect.VueSelect);
 const app = new Vue({
 	router,
 }).$mount("#app");
