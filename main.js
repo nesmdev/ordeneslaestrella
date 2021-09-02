@@ -30,7 +30,8 @@ const routes = [
 
 const router = new VueRouter({
 	routes, // short for `routes: routes`
-	 // mode: 'history'
+	 mode: 'history',
+	 base:"ordeneslaestrella"
 });
 
 Vue.filter("fechaLarga", function (value) {
